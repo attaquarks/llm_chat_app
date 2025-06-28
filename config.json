@@ -1,0 +1,8 @@
+{
+    "chatgpt-4": "your_chatgpt4_api_key",
+    "chatgpt-mini": "your_mini_api_key",
+    "mistral": "your_mistral_api_key",
+    "phi": "your_phi_api_key",
+    "open-mistral": "hf_your_huggingface_token",
+    "open-phi": "hf_your_huggingface_token"
+}
