@@ -2,9 +2,7 @@
 
 A comprehensive chat application that supports multiple AI providers including OpenRouter and Hugging Face models. Chat with various AI models, switch between them seamlessly, and maintain individual conversation histories for each model.
 
-## ✨ Features
-
-### 🎯 Core Features
+## ✨Core Features
 - **Multi-Provider Support**: OpenRouter and Hugging Face models
 - **Seamless Model Switching**: Change models anytime during conversation
 - **Per-Model Chat History**: Each model maintains its own conversation history
