@@ -1,18 +1,19 @@
 # 🤖 LLM Chat App - Multi-Provider AI Chat
 
-A comprehensive chat application that supports multiple AI providers including OpenRouter and Hugging Face models. Chat with various AI models, switch between them seamlessly, and maintain conversation history.
+A comprehensive chat application that supports multiple AI providers including OpenRouter and Hugging Face models. Chat with various AI models, switch between them seamlessly, and maintain individual conversation histories for each model.
 
 ## ✨ Features
 
+### 🎯 Core Features
 - **Multi-Provider Support**: OpenRouter and Hugging Face models
-- **Model Switching**: Change models anytime during conversation
-- **Conversation History**: Maintains context across messages
+- **Seamless Model Switching**: Change models anytime during conversation
+- **Per-Model Chat History**: Each model maintains its own conversation history
+- **Structured Responses**: ChatGPT/Gemini-like formatted responses
 - **Both CLI and Web Interface**: Use via command line or web browser
 - **Real-time Chat**: Instant responses with loading indicators
 - **Model Information**: Detailed descriptions for each model
-- **Responsive Design**: Works on desktop and mobile devices
-- **Session Management**: Multiple conversation sessions
-- **Clear History**: Reset conversations anytime
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Context Preservation**: Each model remembers its own conversation context
 
 ## 🚀 Quick Start
 
@@ -21,7 +22,7 @@ A comprehensive chat application that supports multiple AI providers including O
 - Python 3.7+
 - Node.js 14+
 - OpenRouter API Key (get from [OpenRouter](https://openrouter.ai/keys))
-- Hugging Face API Key (get from [Hugging Face](https://huggingface.co/settings/tokens))
+- Hugging Face API Key (optional - get from [Hugging Face](https://huggingface.co/settings/tokens))
 
 ### Installation
 
@@ -72,78 +73,77 @@ python main.py
 
 ## 🔧 Available Models
 
-### OpenRouter Models
+### OpenRouter Models (Currently Active)
 - **Mistral Small 3.2**: Balanced open-weight model for general purpose tasks
-- **DeepSeek R1**: Strong code and reasoning model by DeepSeek
-- **DeepSeek R1 Qwen3**: Advanced version with Qwen integration
 - **DevStral Small**: Fast inference model for chat and reasoning
+- **DeepSeek R1 Qwen3**: Advanced version with Qwen integration
+- **DeepSeek Chat**: Conversational model tuned for friendly multi-turn dialogue
+- **DeepSeek R1T Chimera**: Hybrid model optimized for multi-domain reasoning
 - **Gemma 3n**: Multilingual model fine-tuned on instruction datasets
+- **Microsoft MAI DS R1**: Microsoft's model optimized for instruction following
+- **LLaMA 4 Maverick**: Meta's instruction-tuned LLaMA 4 variant for creative tasks
+- **LLaMA 4 Scout**: Faster, smaller variant optimized for low-latency tasks
 - **Qwen 3**: Advanced large model with instruction fine-tuning
 
-### Hugging Face Models
-- **DialoGPT Medium**: Conversational AI model by Microsoft
-- **BlenderBot 400M**: Facebook's conversational AI model
-- **DialoGPT Large**: Large conversational model by Microsoft
-- **Flan-T5 Base**: Google's instruction-tuned T5 model
 
 ## 🎮 Web Interface Features
 
 ### Model Selection
-- **Provider Tabs**: Switch between OpenRouter and Hugging Face
-- **Model Dropdown**: Select from available models with descriptions
-- **Model Info**: View detailed information about selected model
+- **Model Dropdown**: Select from available models with detailed descriptions
+- **Model Info Display**: View comprehensive information about selected model
 
 ### Chat Features
-- **Real-time Messaging**: Instant responses with typing indicators
-- **Message Timestamps**: Track when messages were sent
-- **Model Attribution**: See which model generated each response
-- **Clear History**: Reset conversation anytime
-- **Reload Models**: Refresh available models
 
-### Commands
-- **🧹 Clear Chat**: Remove all messages and reset conversation
-- **🔄 Reload Models**: Refresh the list of available models
+- **Real-Time Messaging**: Enjoy instant responses with smooth typing indicators for a seamless chat experience.
+- **Message Timestamps**: View when each message was sent to keep track of your conversation timeline.
+- **Model Attribution**: Easily identify which model generated each response for better transparency.
+- **Per-Model History**: Maintain separate chat histories for each model to preserve context across conversations.
+- **Smart Model Switching**: Switch between models without losing individual conversation threads.
+- **Clear Chat**: Reset the conversation history for the current model at any time.
+- **Reload Models**: Refresh the list of available models instantly for updated access.
+
 
 ## 🖥️ CLI Features
 
 ### Interactive Commands
-- `switch`: Change to a different model
-- `clear`: Clear conversation history
+- `switch`: Change to a different model (preserves individual model histories)
+- `clear`: Clear current model's conversation history
 - `exit`: Quit the application
 
-### Model Display
-- Numbered list of all available models
-- Provider identification (OpenRouter/Hugging Face)
-- Model descriptions and capabilities
+### Enhanced Display
+- Numbered list of all available models with descriptions
+- Provider identification and model capabilities
+- Professional formatting with emojis and clear organization
+- Model-specific conversation context preservation
 
 ## 📁 Project Structure
 
 ```
 llm_chat_app/
-├── main.py              # CLI interface
+├── main.py              # Enhanced CLI interface with per-model history
 ├── query_models.py      # Model management and API calls
 ├── config.py           # Configuration and environment variables
-├── server.js           # Node.js web server
-├── models.json         # OpenRouter model definitions
+├── server.js           # Node.js web server with advanced features
+├── models.json         # OpenRouter model definitions (updated)
 ├── requirements.txt    # Python dependencies
 ├── package.json        # Node.js dependencies
 ├── .env.example        # Environment variables template
 ├── public/
 │   ├── index.html      # Web interface HTML
-│   ├── script.js       # Frontend JavaScript
-│   └── style.css       # Styling and responsive design
-└── README.md           # This file
+│   ├── script.js       # Enhanced frontend with structured responses
+│   └── style.css       # Professional styling with response formatting
+└── README.md           # This comprehensive guide
 ```
 
 ## 🔑 API Keys Setup
 
-### OpenRouter API Key
+### OpenRouter API Key (Required)
 1. Visit [OpenRouter](https://openrouter.ai/keys)
 2. Sign up or log in
 3. Generate an API key
 4. Add to your `.env` file
 
-### Hugging Face API Key
+### Hugging Face API Key (Optional)
 1. Visit [Hugging Face Tokens](https://huggingface.co/settings/tokens)
 2. Sign up or log in
 3. Create a new token with read permissions
@@ -154,9 +154,14 @@ llm_chat_app/
 ### Common Issues
 
 **Models not loading**:
-- Check your API keys in `.env` file
+- Check your OpenRouter API key in `.env` file
 - Ensure you have internet connection
 - Try clicking "🔄 Reload Models" in web interface
+
+**Formatting issues**:
+- Clear browser cache and refresh
+- Check that JavaScript is enabled
+- Ensure all files are properly saved
 
 **Python errors**:
 - Install required packages: `pip install -r requirements.txt`
@@ -165,57 +170,40 @@ llm_chat_app/
 **Node.js errors**:
 - Install dependencies: `npm install`
 - Check Node.js version (14+ required)
+- Kill any existing processes on port 3000
 
 **API errors**:
-- Verify API keys are correct and active
+- Verify OpenRouter API key is correct and active
 - Check API rate limits
 - Some models may have usage restrictions
 
-## 🔄 Adding New Models
-
-### OpenRouter Models
-Edit `models.json` to add new OpenRouter models:
-```json
-{
-  "id": "provider/model-name",
-  "name": "Display Name",
-  "source": "openrouter",
-  "description": "Model description"
-}
-```
-
-### Hugging Face Models
-Edit the `popular_hf_models` list in `query_models.py`:
-```python
-{
-  "id": "username/model-name",
-  "name": "Display Name", 
-  "source": "huggingface",
-  "description": "Model description"
-}
-```
 
 ## 🤝 Contributing
 
 Feel free to contribute by:
 - Adding new model providers
-- Improving the user interface
-- Adding new features
-- Fixing bugs
+- Improving response formatting
+- Enhancing the user interface
+- Adding new features (image support, file uploads, etc.)
+- Fixing bugs and improving performance
 - Improving documentation
 
 ## 📄 License
 
 This project is open source and available under the MIT License.
 
-## 🆘 Support
+## 🎯 Future Roadmap
 
-If you encounter any issues:
-1. Check the troubleshooting section
-2. Verify your API keys and internet connection
-3. Check the console/terminal for error messages
-4. Ensure all dependencies are installed correctly
+- [ ] Image generation support
+- [ ] File upload and analysis
+- [ ] Voice chat integration
+- [ ] Custom model fine-tuning
+- [ ] Team collaboration features
+- [ ] Advanced prompt templates
+- [ ] Export conversation history
+- [ ] Dark/light theme toggle
 
 ---
 
 **Happy Chatting! 🎉**
+
