@@ -3,6 +3,7 @@ let currentProvider = 'openrouter';
 let selectedModel = '';
 let selectedModelInfo = null;
 let sessionId = 'session-' + Date.now(); // Unique session ID
+let modelChatHistories = {}; // Store chat history for each model
 
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
@@ -37,6 +38,11 @@ function setupEventListeners() {
     });
 
     modelDropdown.addEventListener('change', (event) => {
+        // Save current chat history before switching
+        if (selectedModel && chatLog.innerHTML.trim()) {
+            modelChatHistories[selectedModel] = chatLog.innerHTML;
+        }
+        
         selectedModel = event.target.value;
         const selectedOption = event.target.selectedOptions[0];
         selectedModelInfo = {
@@ -46,6 +52,10 @@ function setupEventListeners() {
             provider: 'openrouter', // All models are OpenRouter now
             source: selectedOption.dataset.source || 'openrouter'
         };
+        
+        // Load chat history for the selected model
+        loadChatHistoryForModel(selectedModel);
+        
         updateSelectedModelDisplay();
         toggleChatInput();
     });
@@ -190,12 +200,13 @@ function appendMessage(sender, message, modelName = null) {
     if (sender === 'system') {
         messageElement.innerHTML = `<em>${message}</em>`;
     } else if (sender === 'assistant' && modelName) {
+        const formattedMessage = formatAssistantMessage(message);
         messageElement.innerHTML = `
             <div class="message-header">
                 <strong>${modelName}</strong>
                 <span class="timestamp">${new Date().toLocaleTimeString()}</span>
             </div>
-            <div class="message-content">${message}</div>
+            <div class="message-content">${formattedMessage}</div>
         `;
     } else {
         const content = document.createElement('div');
@@ -216,6 +227,84 @@ function appendMessage(sender, message, modelName = null) {
     chatLog.scrollTop = chatLog.scrollHeight;
     
     return messageId;
+}
+
+// Function to load chat history for a specific model
+function loadChatHistoryForModel(modelId) {
+    if (modelId && modelChatHistories[modelId]) {
+        chatLog.innerHTML = modelChatHistories[modelId];
+        chatLog.scrollTop = chatLog.scrollHeight;
+    } else {
+        chatLog.innerHTML = '';
+        if (modelId) {
+            appendMessage('system', `Started new conversation with ${selectedModelInfo?.name || 'AI model'}`);
+        }
+    }
+}
+
+// Function to format assistant messages with proper structure
+function formatAssistantMessage(message) {
+    // Handle error messages
+    if (message.startsWith('❌')) {
+        return `<div class="error-message">${message}</div>`;
+    }
+    
+    // Split message into paragraphs
+    let paragraphs = message.split('\n\n').filter(p => p.trim());
+    
+    let formattedMessage = '';
+    
+    paragraphs.forEach((paragraph, index) => {
+        paragraph = paragraph.trim();
+        
+        // Check if paragraph is a heading (starts with # or **)
+        if (paragraph.match(/^#+\s+/) || paragraph.match(/^\*\*.*\*\*:?\s*$/)) {
+            // Remove markdown symbols and create heading
+            let headingText = paragraph.replace(/^#+\s+/, '').replace(/^\*\*(.*)\*\*:?\s*$/, '$1');
+            formattedMessage += `<h3 class="response-heading">${headingText}</h3>`;
+        }
+        // Check if paragraph contains bold text or is a list
+        else if (paragraph.includes('**') || paragraph.match(/^\d+\./) || paragraph.match(/^[-*]\s/)) {
+            // Handle bold text
+            let processedParagraph = paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Handle numbered lists
+            if (paragraph.match(/^\d+\./)) {
+                if (!formattedMessage.includes('<ol class="response-list">')) {
+                    formattedMessage += '<ol class="response-list">';
+                }
+                let listItem = processedParagraph.replace(/^\d+\.\s*/, '');
+                formattedMessage += `<li>${listItem}</li>`;
+                
+                // Close list if next paragraph is not a numbered item
+                if (index === paragraphs.length - 1 || !paragraphs[index + 1].match(/^\d+\./)) {
+                    formattedMessage += '</ol>';
+                }
+            }
+            // Handle bullet lists
+            else if (paragraph.match(/^[-*]\s/)) {
+                if (!formattedMessage.includes('<ul class="response-list">')) {
+                    formattedMessage += '<ul class="response-list">';
+                }
+                let listItem = processedParagraph.replace(/^[-*]\s*/, '');
+                formattedMessage += `<li>${listItem}</li>`;
+                
+                // Close list if next paragraph is not a bullet item
+                if (index === paragraphs.length - 1 || !paragraphs[index + 1].match(/^[-*]\s/)) {
+                    formattedMessage += '</ul>';
+                }
+            }
+            else {
+                formattedMessage += `<p class="response-paragraph">${processedParagraph}</p>`;
+            }
+        }
+        // Regular paragraph
+        else {
+            formattedMessage += `<p class="response-paragraph">${paragraph}</p>`;
+        }
+    });
+    
+    return formattedMessage;
 }
 
 // Add clear conversation functionality
@@ -241,8 +330,13 @@ async function clearConversation() {
             })
         });
         
+        // Clear current model's history from storage
+        if (selectedModel) {
+            delete modelChatHistories[selectedModel];
+        }
+        
         chatLog.innerHTML = '';
-        appendMessage('system', 'Conversation history cleared');
+        appendMessage('system', 'Conversation history cleared for this model');
     } catch (error) {
         console.error('Error clearing conversation:', error);
         appendMessage('system', 'Error clearing conversation history');
