@@ -1,0 +1,72 @@
+[
+  {
+    "id": "mistralai/mistral-small-3.2-24b-instruct:free",
+    "name": "Mistral Small 3.2",
+    "source": "Mistral AI",
+    "description": "A balanced open-weight model for general purpose tasks.",
+    "image_support": false
+  },
+  {
+    "id": "mistralai/devstral-small:free",
+    "name": "DevStral Small",
+    "source": "Mistral AI",
+    "description": "Fast inference open-weight model for chat and reasoning.",
+    "image_support": false
+  },
+  {
+    "id": "deepseek/deepseek-r1-0528-qwen3-8b:free",
+    "name": "DeepSeek R1 Qwen3",
+    "source": "DeepSeek",
+    "description": "Advanced version of DeepSeek with Qwen integration.",
+    "image_support": false
+  },
+  {
+    "id": "deepseek/deepseek-chat:free",
+    "name": "DeepSeek Chat",
+    "source": "DeepSeek",
+    "description": "Conversational model tuned for friendly multi-turn dialogue.",
+    "image_support": false
+  },
+  {
+    "id": "tngtech/deepseek-r1t-chimera:free",
+    "name": "DeepSeek R1T Chimera",
+    "source": "DeepSeek",
+    "description": "Hybrid model optimized for multi-domain reasoning and response quality.",
+    "image_support": false
+  },
+  {
+    "id": "google/gemma-3n-e4b-it:free",
+    "name": "Gemma 3n",
+    "source": "Google",
+    "description": "A multilingual model fine-tuned on instruction datasets.",
+    "image_support": false
+  },
+  {
+    "id": "microsoft/mai-ds-r1:free",
+    "name": "Microsoft MAI DS R1",
+    "source": "Microsoft",
+    "description": "Microsoft's model optimized for instruction following.",
+    "image_support": false
+  },
+  {
+    "id": "meta-llama/llama-4-maverick:free",
+    "name": "LLaMA 4 Maverick",
+    "source": "Meta",
+    "description": "Meta's instruction-tuned LLaMA 4 variant for creative and logical tasks.",
+    "image_support": false
+  },
+  {
+    "id": "meta-llama/llama-4-scout:free",
+    "name": "LLaMA 4 Scout",
+    "source": "Meta",
+    "description": "Faster, smaller variant of LLaMA 4 optimized for low-latency tasks.",
+    "image_support": false
+  },
+  {
+    "id": "qwen/qwen3-30b-a3b:free",
+    "name": "Qwen 3",
+    "source": "Alibaba",
+    "description": "Advanced large model with instruction fine-tuning.",
+    "image_support": false
+  }
+]
