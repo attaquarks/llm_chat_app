@@ -1,0 +1,351 @@
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
+    --radius: 0.75rem;
+    --chat-bg: 0 0% 100%;
+    --main-bg: 0 0% 100%;
+    --input-focused: 262 83% 58%;
+    --input-border: 220 13% 86%;
+    --button-vibrant: 262 83% 58%;
+    --attachment-bg: 220 14% 96%;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32% 17%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 262 83% 65%;
+    --chat-bg: 0 0% 0%;
+    --main-bg: 0 0% 0%;
+    --input-focused: 262 83% 65%;
+    --input-border: 217 32% 17%;
+    --button-vibrant: 262 83% 65%;
+    --attachment-bg: 217 32% 20%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins;
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-muted rounded-md;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-md;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Hide scrollbar completely */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Enhanced gradient backgrounds */
+.gradient-bg {
+  @apply bg-gradient-main dark:bg-gradient-main-dark;
+  position: relative;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  background-size: 800px 800px, 600px 600px, 900px 900px, 700px 700px;
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-20px, -20px) rotate(1deg); }
+  50% { transform: translate(20px, -10px) rotate(-1deg); }
+  75% { transform: translate(-10px, 20px) rotate(1deg); }
+}
+
+/* Chat background pattern - Pure backgrounds for themes */
+.chat-bg-pattern {
+  background-color: hsl(var(--chat-bg));
+}
+
+.dark .chat-bg-pattern {
+  background-color: hsl(var(--chat-bg));
+}
+
+/* Pure theme backgrounds */
+.theme-day-bg {
+  background-color: hsl(var(--main-bg)) !important;
+}
+
+.theme-dark-bg {
+  background-color: hsl(var(--main-bg)) !important;
+}
+
+.gradient-user-bubble {
+  @apply bg-gradient-user dark:bg-gradient-user-dark;
+}
+
+.gradient-ai-bubble {
+  @apply bg-gradient-ai dark:bg-gradient-ai-dark;
+}
+
+.gradient-button {
+  @apply bg-gradient-button hover:bg-gradient-button-hover;
+}
+
+/* Message bubble styles */
+.message-bubble {
+  @apply max-w-[80%] rounded-2xl px-4 py-3 shadow-lg backdrop-blur-sm;
+  transition: all 0.3s ease;
+}
+
+.message-bubble:hover {
+  @apply shadow-xl transform scale-[1.02];
+}
+
+.message-bubble.user {
+  @apply gradient-user-bubble text-white ml-auto rounded-br-md;
+}
+
+.message-bubble.assistant {
+  @apply gradient-ai-bubble text-white mr-auto rounded-bl-md;
+}
+
+.message-bubble.system {
+  @apply bg-muted text-muted-foreground mx-auto text-center max-w-[60%] rounded-xl;
+}
+
+/* Enhanced button styles */
+.btn-primary {
+  @apply gradient-button text-white hover:shadow-lg focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-all duration-300;
+}
+
+.btn-send {
+  @apply gradient-button text-white hover:shadow-lg hover:scale-105 focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300;
+}
+
+/* Card styles */
+.card-elevated {
+  @apply bg-card border shadow-xl;
+}
+
+.card-glassmorphism {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+/* Input styles */
+.input-enhanced {
+  @apply border-input bg-background/50 backdrop-blur-sm focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-300;
+}
+
+/* Typography enhancements */
+.text-gradient {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-ai {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full border-2 border-muted border-t-primary;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  @apply flex items-center gap-1;
+}
+
+.typing-dot {
+  @apply w-2 h-2 bg-current rounded-full;
+  animation: bounce-dots 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+/* Animation for loading messages */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+  @apply relative inline-flex items-center justify-center p-2 rounded-full transition-all duration-300;
+}
+
+.theme-toggle:hover {
+  @apply bg-muted/50 shadow-lg;
+}
+
+/* Responsive design utilities */
+@media (max-width: 768px) {
+  .message-bubble {
+    @apply max-w-[90%];
+  }
+  
+  .card-elevated {
+    @apply mx-2;
+  }
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+}
+
+/* Glassmorphism effect */
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+.glass-dark {
+  @apply bg-black/10 backdrop-blur-md border border-white/10 shadow-xl;
+}
+
+/* Enhanced Input Styling */
+.border-3 {
+  border-width: 3px;
+}
+
+.input-enhanced-focus {
+  border-color: hsl(var(--input-focused));
+  box-shadow: 0 0 0 4px hsl(var(--input-focused) / 0.2);
+}
+
+/* Enhanced Button Styling */
+.btn-vibrant {
+  background: hsl(var(--button-vibrant));
+  border-color: hsl(var(--button-vibrant));
+  box-shadow: 0 10px 25px hsl(var(--button-vibrant) / 0.4);
+}
+
+.btn-vibrant:hover {
+  background: hsl(var(--button-vibrant) / 0.9);
+  border-color: hsl(var(--button-vibrant) / 0.9);
+  box-shadow: 0 15px 35px hsl(var(--button-vibrant) / 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-attachment {
+  background: hsl(var(--attachment-bg));
+  border-color: hsl(var(--input-border));
+}
+
+.btn-attachment:hover {
+  background: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary) / 0.5);
+  color: hsl(var(--primary));
+  transform: translateY(-1px);
+}
+
+/* Pure white background enforcement */
+body.light-theme {
+  background-color: #FFFFFF !important;
+}
+
+.light-theme .bg-background {
+  background-color: #FFFFFF !important;
+}
+
+.light-theme .card-elevated {
+  background-color: #FFFFFF !important;
+}
+
+.light-theme .chat-bg-pattern {
+  background-color: #FFFFFF !important;
+}

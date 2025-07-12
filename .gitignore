@@ -64,3 +64,11 @@ logs
 # Build outputs
 dist/
 build/ 
+# Python virtual environment
+.venv/
+
+# Next.js build output
+.next/
+
+# Python cache
+__pycache__/ 
